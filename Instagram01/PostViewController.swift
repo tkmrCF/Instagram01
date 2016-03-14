@@ -7,7 +7,13 @@
 //
 
 import UIKit
+import Firebase
+import SVProgressHUD
+
 
 class PostViewController: UIViewController {
+    
+    var image: UIImage!
+    
 
 }
