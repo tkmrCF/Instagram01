@@ -21,7 +21,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        print("HomeViewController.viewDidLoad")
+        //print("HomeViewController.viewDidLoad")
         // UITableViewを準備する
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         tableView.registerNib(nib, forCellReuseIdentifier: "Cell")
@@ -37,7 +37,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let postData = PostData(snapshot: snapshot, myId: self.firebaseRef.authData.uid)
             self.postArray.insert(postData, atIndex: 0)
             
-            print("HomeViewController.tableView.reloadData:",postData.caption )
+            //print("HomeViewController.tableView.reloadData:",postData.caption )
             // TableViewを再表示する
             self.tableView.reloadData()
         })
@@ -57,7 +57,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
             }
             
-            print("HomeViewController.postArray.removeAtIndex")
+            //print("HomeViewController.postArray.removeAtIndex")
             // 差し替えるため一度削除する
             self.postArray.removeAtIndex(index)
             
@@ -79,12 +79,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("postArray.count:", postArray.count)
+        //print("postArray.count:", postArray.count)
         return postArray.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        print("HomeViewController.cellForRowAtIndexPath")
+        //print("HomeViewController.cellForRowAtIndexPath")
         
         // セルを取得してデータを設定する
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PostTableViewCell
@@ -105,7 +105,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("HomeViewController.didSelectRowAtIndexPath")
+        //print("HomeViewController.didSelectRowAtIndexPath")
         // セルをタップされたら何もせずに選択状態を解除する
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
@@ -113,7 +113,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // セル内のボタンがタップされた時に呼ばれるメソッド
     func handleButton(sender: UIButton, event:UIEvent) {
         
-        print("HomeViewController.handleButton")
+        //print("HomeViewController.handleButton")
         // タップされたセルのインデックスを求める
         let touch = event.allTouches()?.first
         let point = touch!.locationInView(self.tableView)

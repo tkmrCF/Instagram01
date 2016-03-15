@@ -20,13 +20,13 @@ class PostTableViewCell: UITableViewCell {
     var postData: PostData?
 
     override func awakeFromNib() {
-        print("PostTableViewCell.awakeFromNib")
+        //print("PostTableViewCell.awakeFromNib")
         super.awakeFromNib()
         // Initialization code
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
-        print("PostTableViewCell.setSelected")
+        //print("PostTableViewCell.setSelected")
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
@@ -36,7 +36,7 @@ class PostTableViewCell: UITableViewCell {
     // 表示されるときに呼ばれるメソッドをオーバーライドしてデータをUIに反映する
     override func layoutSubviews() {
         
-        print("PostTableViewCell.layoutSubviews")
+        //print("PostTableViewCell.layoutSubviews")
         postImageView.image = postData!.image
         captionLabel.text = "\(postData!.name!) : \(postData!.caption!)"
         
