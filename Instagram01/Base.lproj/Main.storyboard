@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -33,8 +34,27 @@
                     <view key="view" contentMode="scaleToFill" id="LhS-jG-oeq">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Lzj-ln-eGr">
+                                <rect key="frame" x="20" y="55" width="560" height="495"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="UTH-We-gLw" id="t7R-6H-v5g"/>
+                                    <outlet property="delegate" destination="UTH-We-gLw" id="3pS-ld-V2a"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Lzj-ln-eGr" firstAttribute="leading" secondItem="LhS-jG-oeq" secondAttribute="leadingMargin" id="9dP-tK-7Fs"/>
+                            <constraint firstItem="Lzj-ln-eGr" firstAttribute="top" secondItem="Aih-sI-IqO" secondAttribute="bottom" constant="35" id="RMm-8Q-pip"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Lzj-ln-eGr" secondAttribute="trailing" id="Yqb-bV-P7m"/>
+                            <constraint firstItem="AOJ-WW-zq2" firstAttribute="top" secondItem="Lzj-ln-eGr" secondAttribute="bottom" constant="50" id="jyP-dw-rrC"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="Lzj-ln-eGr" id="GxX-an-4Kz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tVT-wb-OrF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -51,8 +71,57 @@
                     <view key="view" contentMode="scaleToFill" id="g2S-x6-h5t">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vUf-8W-QGk">
+                                <rect key="frame" x="20" y="40" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="9rI-Qi-Tft"/>
+                                    <constraint firstAttribute="width" constant="120" id="t8K-ls-RUu"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="キャプション" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p3e-Bj-0mY">
+                                <rect key="frame" x="150" y="130" width="430" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EP3-mc-Syb">
+                                <rect key="frame" x="150" y="180" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="oN1-mB-ssC"/>
+                                </constraints>
+                                <state key="normal" title="投稿" backgroundImage="btn"/>
+                                <connections>
+                                    <action selector="handlePostButton:" destination="PMz-RY-0t5" eventType="touchUpInside" id="T2w-Rf-lWg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BH1-NN-dNS">
+                                <rect key="frame" x="150" y="220" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="4gq-Ml-IV2"/>
+                                </constraints>
+                                <state key="normal" title="キャンセル" backgroundImage="btn"/>
+                                <connections>
+                                    <action selector="handleCancelButton:" destination="PMz-RY-0t5" eventType="touchUpInside" id="rQ3-t2-HHI"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EP3-mc-Syb" firstAttribute="top" secondItem="p3e-Bj-0mY" secondAttribute="bottom" constant="20" id="Af3-ji-bEE"/>
+                            <constraint firstItem="p3e-Bj-0mY" firstAttribute="bottom" secondItem="vUf-8W-QGk" secondAttribute="bottom" id="Gs2-ng-Bq2"/>
+                            <constraint firstItem="p3e-Bj-0mY" firstAttribute="leading" secondItem="vUf-8W-QGk" secondAttribute="trailing" constant="10" id="IgA-MZ-VRS"/>
+                            <constraint firstItem="BH1-NN-dNS" firstAttribute="top" secondItem="EP3-mc-Syb" secondAttribute="bottom" constant="10" id="WWP-ml-aVX"/>
+                            <constraint firstItem="EP3-mc-Syb" firstAttribute="centerX" secondItem="g2S-x6-h5t" secondAttribute="centerX" id="WiM-OD-jxv"/>
+                            <constraint firstItem="BH1-NN-dNS" firstAttribute="centerX" secondItem="g2S-x6-h5t" secondAttribute="centerX" id="WlL-j5-sEB"/>
+                            <constraint firstItem="vUf-8W-QGk" firstAttribute="leading" secondItem="g2S-x6-h5t" secondAttribute="leadingMargin" id="q3w-aT-b4I"/>
+                            <constraint firstItem="vUf-8W-QGk" firstAttribute="top" secondItem="jHr-LY-Z1N" secondAttribute="bottom" constant="20" id="qIC-iK-uF1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="p3e-Bj-0mY" secondAttribute="trailing" id="z8T-Xr-5Pr"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="vUf-8W-QGk" id="9aN-fi-AiF"/>
+                        <outlet property="textField" destination="p3e-Bj-0mY" id="R3c-gp-BgB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MPx-gU-lWR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

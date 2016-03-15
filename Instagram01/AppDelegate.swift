@@ -18,7 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // Adobeの管理画面で登録したアプリのClientIDとSecretの文字列を設定する
-        AdobeUXAuthManager.sharedManager().setAuthenticationParametersWithClientID("登録したアプリのClientID", clientSecret: "登録したアプリのSecret", enableSignUp: false)
+        //AdobeUXAuthManager.sharedManager().setAuthenticationParametersWithClientID("登録したアプリのClientID", clientSecret: "登録したアプリのSecret", enableSignUp: false)
+        AdobeUXAuthManager.sharedManager().setAuthenticationParametersWithClientID("80b9deaac7544e3ba1fcd4efb9a3a994", clientSecret: "cf68d816-ab81-4529-8203-ee6f3a81c5b1", enableSignUp: false)
         
         return true
     }
