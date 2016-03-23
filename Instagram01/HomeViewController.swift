@@ -18,14 +18,31 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var postArray: [PostData] = []
 
     
+    /*
+    セクションの数を返す. 【＝課題対応用＝】
+    */
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        
+        // 登録されている写真の枚数分　セクションを作る
+        return postArray.count
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
     
         //print("HomeViewController.viewDidLoad")
         // UITableViewを準備する
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         tableView.registerNib(nib, forCellReuseIdentifier: "Cell")
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        
+        // コメント用Cell名の登録をおこなう.　【＝課題対応用＝】
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
+        
         
         // Firebaseの準備をする
         firebaseRef = Firebase(url: CommonConst.FirebaseURL)
@@ -80,23 +97,61 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //print("postArray.count:", postArray.count)
-        return postArray.count
+        //return postArray.count　  // 課題前
+        
+        /*
+        let postData = postArray[section]
+        print("numberOfRowsInSection:",
+                 postData.likes.count )
+        if postData.likes.count > 0 {
+            return postData.likes.count
+        }else{
+            return 1
+        }
+        */
+
+        return 3   //【＝課題対応用＝】
+        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //print("HomeViewController.cellForRowAtIndexPath")
         
-        // セルを取得してデータを設定する
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PostTableViewCell
-        cell.postData = postArray[indexPath.row]
+        let aaa = indexPath.section
+        let bbb = indexPath.row
         
-        // セル内のボタンのアクションをソースコードで設定する
-        cell.likeButton.addTarget(self, action:"handleButton:event:", forControlEvents:  UIControlEvents.TouchUpInside)
+        print( "====================================aaa:", aaa,  "bbb:", bbb )
         
-        // UILabelの行数が変わっている可能性があるので再描画させる
-        cell.layoutIfNeeded()
+        if bbb == 0 {  //【＝課題前の処理＝】
+            // セルを取得してデータを設定する
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PostTableViewCell
         
-        return cell
+            //cell.postData = postArray[indexPath.row]
+            // VVVVVVV セクションに置き換え【＝課題対応用＝】
+            cell.postData = postArray[indexPath.section]
+            
+            // セル内のボタンのアクションをソースコードで設定する
+            cell.likeButton.addTarget(self, action:"handleButton:event:", forControlEvents:  UIControlEvents.TouchUpInside)
+            
+            // セル内のボタンのアクションをソースコードで設定する
+            cell.commentButton.addTarget(self, action:"textButton:event:", forControlEvents:  UIControlEvents.TouchUpInside)
+    
+            // UILabelの行数が変わっている可能性があるので再描画させる
+            cell.layoutIfNeeded()
+            
+            return cell
+        }else{
+            
+            /***
+            課題対応　コメントが追加されたときのCell
+            ***/
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("MyCell", forIndexPath: indexPath)
+            
+            cell.textLabel?.text = "OK"
+            
+            return cell
+        }
     }
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -110,6 +165,47 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    
+    // 【＝課題対応用＝】
+    func textButton(sender: UIButton, event:UIEvent){
+
+        //print("HomeViewController.handleButton")
+        // タップされたセルのインデックスを求める
+        let touch = event.allTouches()?.first
+        let point = touch!.locationInView(self.tableView)
+        let indexPath = tableView.indexPathForRowAtPoint(point)
+        let uid = firebaseRef.authData.uid
+        
+        let aaa = indexPath?.section
+        let bbb = indexPath?.row
+        
+        
+        // 配列からタップされたインデックスのデータを取り出す
+        let postData = postArray[indexPath!.row]
+        
+        let  aa = postData.likes.append(uid)
+        
+        //let  bb = postData.comment.append(uid)
+        
+        
+        /*
+         var countIine:uint = postData.textCount!
+        if ( countIine > 10 ){
+            countIine = 0
+        }else{
+            countIine  = countIine + 1
+        }
+        */
+        
+        print( "textButton" ,aaa, bbb, aa,
+                            postData.comment.count)
+    
+    
+    }
+    
+    
+    
+
     // セル内のボタンがタップされた時に呼ばれるメソッド
     func handleButton(sender: UIButton, event:UIEvent) {
         
