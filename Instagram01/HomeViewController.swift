@@ -98,20 +98,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //print("postArray.count:", postArray.count)
         //return postArray.count　  // 課題前
-        
-        /*
+
         let postData = postArray[section]
         print("numberOfRowsInSection:",
                  postData.likes.count )
-        if postData.likes.count > 0 {
-            return postData.likes.count
-        }else{
-            return 1
-        }
-        */
+        return (postData.comment.count + 1)
 
-        return 3   //【＝課題対応用＝】
-        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -154,6 +146,40 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    
+    // 【＝課題対応用＝】
+    func textButton(sender: UIButton, event:UIEvent){
+        
+        //print("HomeViewController.handleButton")
+        // タップされたセルのインデックスを求める
+        let touch = event.allTouches()?.first
+        let point = touch!.locationInView(self.tableView)
+        let indexPath = tableView.indexPathForRowAtPoint(point)
+        let uid = firebaseRef.authData.uid
+        
+        let aaa = indexPath?.section
+        let bbb = indexPath?.row
+        
+        print( "textButton" ,aaa, bbb )
+        
+        
+        //let postViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentInputView")
+        //postViewController.postData
+        
+        
+        
+        // コメント入力画面を開く
+        let commentViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentInputView")  // as! commentViewController
+        
+        // cell.postData = postArray[indexPath.section]
+        commentViewController.postData = postArray[indexPath.section]
+        
+        self.presentViewController(commentViewController!, animated: true, completion: nil)
+    }
+    
+
+    
+    
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         // Auto Layoutを使ってセルの高さを動的に変更する
         return UITableViewAutomaticDimension
@@ -166,42 +192,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
-    // 【＝課題対応用＝】
-    func textButton(sender: UIButton, event:UIEvent){
 
-        //print("HomeViewController.handleButton")
-        // タップされたセルのインデックスを求める
-        let touch = event.allTouches()?.first
-        let point = touch!.locationInView(self.tableView)
-        let indexPath = tableView.indexPathForRowAtPoint(point)
-        let uid = firebaseRef.authData.uid
-        
-        let aaa = indexPath?.section
-        let bbb = indexPath?.row
-        
-        
-        // 配列からタップされたインデックスのデータを取り出す
-        let postData = postArray[indexPath!.row]
-        
-        let  aa = postData.likes.append(uid)
-        
-        //let  bb = postData.comment.append(uid)
-        
-        
-        /*
-         var countIine:uint = postData.textCount!
-        if ( countIine > 10 ){
-            countIine = 0
-        }else{
-            countIine  = countIine + 1
-        }
-        */
-        
-        print( "textButton" ,aaa, bbb, aa,
-                            postData.comment.count)
-    
-    
-    }
     
     
     

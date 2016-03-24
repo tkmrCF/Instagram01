@@ -23,6 +23,82 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
+        <!--Comment View Controller-->
+        <scene sceneID="hUg-it-YIj">
+            <objects>
+                <viewController storyboardIdentifier="CommentInputView" id="HPU-pE-iJb" customClass="commentViewController" customModule="Instagram01" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RCj-kQ-ubO"/>
+                        <viewControllerLayoutGuide type="bottom" id="l7I-ik-jvV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wMj-wo-F0P">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sh9-HM-5DH">
+                                <rect key="frame" x="40" y="278" width="88" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="88" id="2kQ-5w-wck"/>
+                                    <constraint firstAttribute="height" constant="30" id="nCf-Xl-guc"/>
+                                </constraints>
+                                <state key="normal" title="キャンセル"/>
+                                <connections>
+                                    <action selector="cancelButton:" destination="HPU-pE-iJb" eventType="touchUpInside" id="2cL-Zl-ArU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MlY-tm-j3J">
+                                <rect key="frame" x="510" y="278" width="50" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="XBx-of-s5B"/>
+                                    <constraint firstAttribute="width" constant="50" id="eaD-Fr-lzy"/>
+                                </constraints>
+                                <state key="normal" title="O  K"/>
+                                <connections>
+                                    <action selector="OKbutton:" destination="HPU-pE-iJb" eventType="touchUpInside" id="v7G-Cx-dSI"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9LS-Id-5OZ" userLabel="Comment Name">
+                                <rect key="frame" x="40" y="60" width="50" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="CzW-da-SaQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="コメント" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vDH-MG-tEB">
+                                <rect key="frame" x="40" y="100" width="520" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="BTf-Fu-xW1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="vDH-MG-tEB" secondAttribute="trailing" constant="20" id="5Ng-e2-SIs"/>
+                            <constraint firstItem="vDH-MG-tEB" firstAttribute="top" secondItem="RCj-kQ-ubO" secondAttribute="bottom" constant="80" id="8qk-s2-Y7h"/>
+                            <constraint firstItem="vDH-MG-tEB" firstAttribute="leading" secondItem="wMj-wo-F0P" secondAttribute="leadingMargin" constant="20" id="Vmb-Mh-ujd"/>
+                            <constraint firstItem="MlY-tm-j3J" firstAttribute="top" secondItem="vDH-MG-tEB" secondAttribute="bottom" constant="50" id="X2l-un-GT7"/>
+                            <constraint firstItem="9LS-Id-5OZ" firstAttribute="top" secondItem="RCj-kQ-ubO" secondAttribute="bottom" constant="40" id="lgd-Go-sRA"/>
+                            <constraint firstItem="MlY-tm-j3J" firstAttribute="centerY" secondItem="sh9-HM-5DH" secondAttribute="centerY" id="roC-ho-OuM"/>
+                            <constraint firstItem="9LS-Id-5OZ" firstAttribute="leading" secondItem="wMj-wo-F0P" secondAttribute="leadingMargin" constant="20" id="tC6-sO-xoj"/>
+                            <constraint firstItem="sh9-HM-5DH" firstAttribute="leading" secondItem="wMj-wo-F0P" secondAttribute="leadingMargin" constant="20" id="x8e-vP-6m0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MlY-tm-j3J" secondAttribute="trailing" constant="20" id="xm9-HK-HwS"/>
+                            <constraint firstItem="sh9-HM-5DH" firstAttribute="top" secondItem="vDH-MG-tEB" secondAttribute="bottom" constant="50" id="yLN-fA-f9e"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="commentName" destination="9LS-Id-5OZ" id="9bU-ki-onJ"/>
+                        <outlet property="commentTextview" destination="vDH-MG-tEB" id="g5L-bw-xoC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="egu-eS-ekU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-193" y="1148"/>
+        </scene>
         <!--Home View Controller-->
         <scene sceneID="Mol-Bv-Ow1">
             <objects>
@@ -94,8 +170,8 @@
                                     <action selector="handlePostButton:" destination="PMz-RY-0t5" eventType="touchUpInside" id="T2w-Rf-lWg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BH1-NN-dNS">
-                                <rect key="frame" x="150" y="220" width="300" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BH1-NN-dNS">
+                                <rect key="frame" x="150" y="230" width="300" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="4gq-Ml-IV2"/>
                                 </constraints>
@@ -220,8 +296,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTX-yS-YSJ">
-                                <rect key="frame" x="150" y="80" width="300" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTX-yS-YSJ">
+                                <rect key="frame" x="150" y="80" width="300" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="mDP-tX-Btj"/>
                                 </constraints>
@@ -230,8 +306,8 @@
                                     <action selector="handleLibraryButton:" destination="90Z-pv-c3U" eventType="touchUpInside" id="LJr-3M-HER"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdQ-rx-i7p">
-                                <rect key="frame" x="150" y="120" width="300" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdQ-rx-i7p">
+                                <rect key="frame" x="150" y="130" width="300" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="Lst-4y-QAb"/>
                                 </constraints>
@@ -240,8 +316,8 @@
                                     <action selector="handleCameraButton:" destination="90Z-pv-c3U" eventType="touchUpInside" id="4iR-Pu-OXu"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vPq-Xz-ekS">
-                                <rect key="frame" x="150" y="160" width="300" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vPq-Xz-ekS">
+                                <rect key="frame" x="150" y="180" width="300" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="wJ3-LO-Jcv"/>
                                 </constraints>

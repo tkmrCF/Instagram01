@@ -18,9 +18,8 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var commentButton: UIButton!
 
-
-    
     var postData: PostData?
+    
 
     override func awakeFromNib() {
         //print("PostTableViewCell.awakeFromNib")
