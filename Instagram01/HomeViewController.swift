@@ -32,7 +32,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
-    
         //print("HomeViewController.viewDidLoad")
         // UITableViewを準備する
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
@@ -40,8 +39,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.rowHeight = UITableViewAutomaticDimension
         
         
-        // コメント用Cell名の登録をおこなう.　【＝課題対応用＝】
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
+        // コメント用Cell名の登録.　【＝課題対応用＝】
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "comCell")
         
         
         // Firebaseの準備をする
@@ -74,16 +73,35 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
             }
             
+            var like_flag = true
+            if postData.isLiked == self.postArray[index].isLiked {
+                // LIKEボタンが押されていない
+                like_flag = false
+            }
+            
             //print("HomeViewController.postArray.removeAtIndex")
             // 差し替えるため一度削除する
             self.postArray.removeAtIndex(index)
+
             
             // 削除したところに更新済みのでデータを追加する
             self.postArray.insert(postData, atIndex: index)
+
             
+            // 【＝課題対応用＝】 この処理の修正がうまく　できない。　ここで落ちてしまう。
             // TableViewの該当セルだけを更新する
-            let indexPath = NSIndexPath(forRow: index, inSection: 0)
-            self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+            //let indexPath = NSIndexPath(forRow: index, inSection: 0)       
+
+            if like_flag == true {   //　LIKEボタンが押された時のみ該当セルを更新する
+                
+                /**** この処理だと　うまく動かない。落ちる。
+                let indexPath = NSIndexPath(forRow: 0, inSection: index )
+               　self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+                *****/
+                
+                self.tableView.reloadData()
+            }
+            
         })
 
     }
@@ -98,12 +116,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //print("postArray.count:", postArray.count)
         //return postArray.count　  // 課題前
-
         let postData = postArray[section]
-        print("numberOfRowsInSection:",
-                 postData.likes.count )
         return (postData.comment.count + 1)
-
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -138,10 +152,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             課題対応　コメントが追加されたときのCell
             ***/
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("MyCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier("comCell", forIndexPath: indexPath)
             
-            cell.textLabel?.text = "OK"
-            
+            // cell.textLabel?.text = "OK"
+            let postData = postArray[indexPath.section]
+            cell.textLabel?.text = postData.comment[indexPath.row-1]
+            cell.textLabel!.font = UIFont(name: "Arial", size: 10)
             return cell
         }
     }
@@ -155,30 +171,24 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let touch = event.allTouches()?.first
         let point = touch!.locationInView(self.tableView)
         let indexPath = tableView.indexPathForRowAtPoint(point)
-        let uid = firebaseRef.authData.uid
+        //let uid = firebaseRef.authData.uid
         
         let aaa = indexPath?.section
         let bbb = indexPath?.row
         
         print( "textButton" ,aaa, bbb )
         
+        // コメント入力画面のインスタンス生成
+        // 注意！！　クラス名とインスタンス名が同一だったので、混同されて、postDataプロパティが表示されなかった。
+        let commentViewController2 = self.storyboard?.instantiateViewControllerWithIdentifier("CommentInputView") as! commentViewController
         
-        //let postViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentInputView")
-        //postViewController.postData
-        
-        
+        commentViewController2.firebaseRef = self.firebaseRef
+        commentViewController2.postData = postArray[indexPath!.section]
         
         // コメント入力画面を開く
-        let commentViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentInputView")  // as! commentViewController
-        
-        // cell.postData = postArray[indexPath.section]
-        commentViewController.postData = postArray[indexPath.section]
-        
-        self.presentViewController(commentViewController!, animated: true, completion: nil)
+        self.presentViewController(commentViewController2 , animated: true, completion: nil)
     }
-    
 
-    
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         // Auto Layoutを使ってセルの高さを動的に変更する
@@ -192,11 +202,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
-
-    
-    
-    
-
+    // ＞＞＞＞＞　like-Button　を押された時の処理　＜＜＜＜＜
     // セル内のボタンがタップされた時に呼ばれるメソッド
     func handleButton(sender: UIButton, event:UIEvent) {
         
@@ -206,8 +212,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let point = touch!.locationInView(self.tableView)
         let indexPath = tableView.indexPathForRowAtPoint(point)
         
+         print("postArray[",indexPath!.section)
+        
         // 配列からタップされたインデックスのデータを取り出す
-        let postData = postArray[indexPath!.row]
+        //let postData = postArray[indexPath!.row]
+        let postData = postArray[indexPath!.section]
         
         // Firebaseに保存するデータの準備
         let uid = firebaseRef.authData.uid
@@ -234,9 +243,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let time = (postData.date?.timeIntervalSinceReferenceDate)! as NSTimeInterval
         let likes = postData.likes
+        let comms = postData.comment
         
         // 辞書を作成してFirebaseに保存する
-        let post = ["caption": caption!, "image": imageString!, "name": name!, "time": time, "likes": likes]
+        let post = ["caption": caption!, "image": imageString!, "name": name!, "time": time, "likes": likes, "comment": comms]
         let postRef = Firebase(url: CommonConst.FirebaseURL).childByAppendingPath(CommonConst.PostPATH)
         postRef.childByAppendingPath(postData.id).setValue(post)
     }

@@ -7,14 +7,44 @@
 //
 
 import UIKit
+import Firebase
 
 class commentViewController: UIViewController {
 
+    var firebaseRef:Firebase!
     var postData: PostData?
  
     @IBOutlet weak var commentName: UILabel!
     @IBOutlet weak var commentTextview: UITextView!
+    
     @IBAction func OKbutton(sender: AnyObject) {
+
+        let imageString = postData!.imageString
+        let name = postData!.name
+        let caption = postData!.caption
+        let likes = postData!.likes
+        
+        let time = (postData!.date?.timeIntervalSinceReferenceDate)! as NSTimeInterval
+
+        if commentTextview.text == "" {
+            commentTextview.text = "いいね  "
+        }
+        let text:String = String(name! + " : " + commentTextview.text!)
+ 
+        //postData?.comment.append(commentTextview.text)
+        postData?.comment.append(text)
+        let comms = postData!.comment
+        
+        
+        // 辞書を作成してFirebaseに保存する
+        let post = ["caption": caption!, "image": imageString!, "name": name!, "time": time, "likes": likes, "comment": comms]
+        
+        let postRef = Firebase(url: CommonConst.FirebaseURL).childByAppendingPath(CommonConst.PostPATH)
+        
+        postRef.childByAppendingPath(postData!.id).setValue(post)
+       
+        // 画面を閉じる
+        dismissViewControllerAnimated(true, completion: nil)
         
     }
     
@@ -29,7 +59,7 @@ class commentViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        //commentName.text = "\(postData!.name!) : \(postData!.caption!)"
+        commentName.text = "\(postData!.name!) : \(postData!.caption!)"
         
     }
 

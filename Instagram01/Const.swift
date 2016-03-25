@@ -15,3 +15,12 @@ struct CommonConst {
     static let PostPATH = "posts"
     static let DisplayNameKey = "DISPLAYNAME"
 }
+
+
+struct CommonConst2 {
+    //static let FirebaseURL = "https://＜管理画面に表示されているアドレス＞.firebaseIO.com"
+    static let FirebaseURL = "https://sweltering-inferno-3451.firebaseIO.com"
+    static let UsersPATH = "users"
+    static let PostPATH = "comments"
+    static let DisplayNameKey = "DISPLAYNAME"
+}

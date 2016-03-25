@@ -17,9 +17,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdW-Uk-sWk">
-                        <rect key="frame" x="331" y="286" width="100" height="12"/>
+                        <rect key="frame" x="291" y="286" width="140" height="12"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="100" id="UYF-b4-bib"/>
+                            <constraint firstAttribute="width" constant="140" id="UYF-b4-bib"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -57,21 +57,21 @@
                         </constraints>
                         <state key="normal" title="Button" image="like_none"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CB-gi-bOo">
-                        <rect key="frame" x="18" y="322" width="413" height="231"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4Z-9F-Qg0">
+                        <rect key="frame" x="88" y="282" width="40" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="nFB-L3-1bn"/>
+                            <constraint firstAttribute="height" constant="20" id="xpp-nw-sNF"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <state key="normal" title="コメント 追加"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CB-gi-bOo">
+                        <rect key="frame" x="18" y="320" width="413" height="231"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4Z-9F-Qg0">
-                        <rect key="frame" x="88" y="282" width="80" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="80" id="nFB-L3-1bn"/>
-                            <constraint firstAttribute="height" constant="20" id="xpp-nw-sNF"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <state key="normal" title="コメント追加"/>
-                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="bI8-Th-li5" firstAttribute="leading" secondItem="vW6-23-ryy" secondAttribute="trailing" constant="10" id="7zl-V1-13k"/>
