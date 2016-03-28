@@ -23,13 +23,17 @@ class commentViewController: UIViewController {
         let name = postData!.name
         let caption = postData!.caption
         let likes = postData!.likes
+  
+        // NSUserDfaultsから表示名を取得する
+        let ud = NSUserDefaults.standardUserDefaults()
+        let dispname = ud.objectForKey(CommonConst.DisplayNameKey) as! String
         
         let time = (postData!.date?.timeIntervalSinceReferenceDate)! as NSTimeInterval
 
         if commentTextview.text == "" {
             commentTextview.text = "いいね  "
         }
-        let text:String = String(name! + " : " + commentTextview.text!)
+        let text:String = String(dispname + " : " + commentTextview.text!)
  
         //postData?.comment.append(commentTextview.text)
         postData?.comment.append(text)
@@ -68,6 +72,7 @@ class commentViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+
 
     /*
     // MARK: - Navigation
